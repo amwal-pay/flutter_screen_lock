@@ -7,6 +7,7 @@ class ScreenLockConfig {
     this.textStyle,
     this.buttonStyle,
     this.themeData,
+    this.textStrings = const ScreenLockTextStrings(),
   });
 
   /// Background color of the ScreenLock.
@@ -23,6 +24,9 @@ class ScreenLockConfig {
 
   /// Base [ThemeData] that is overridden by other specified values.
   final ThemeData? themeData;
+
+  /// Text strings configuration
+  final ScreenLockTextStrings textStrings;
 
   /// Returns this config as a [ThemeData].
   ThemeData toThemeData() {
@@ -43,6 +47,7 @@ class ScreenLockConfig {
     TextStyle? textStyle,
     ButtonStyle? buttonStyle,
     ThemeData? themeData,
+    ScreenLockTextStrings? textStrings,
   }) {
     return ScreenLockConfig(
       backgroundColor: backgroundColor ?? this.backgroundColor,
@@ -50,6 +55,7 @@ class ScreenLockConfig {
       textStyle: textStyle ?? this.textStyle,
       buttonStyle: buttonStyle ?? this.buttonStyle,
       themeData: themeData ?? this.themeData,
+      textStrings: textStrings ?? this.textStrings,
     );
   }
 
@@ -72,4 +78,35 @@ class ScreenLockConfig {
       fontSize: 18,
     ),
   );
+}
+
+class ScreenLockTextStrings {
+  const ScreenLockTextStrings({
+    this.enterNewPasscode = 'Please enter new passcode.',
+    this.confirmNewPasscode = 'Please confirm new passcode.',
+    this.enterPasscode = 'Please enter passcode.',
+    this.cancel = 'Cancel',
+  });
+
+  /// Text shown when creating a new passcode
+  final String enterNewPasscode;
+
+  /// Text shown when confirming a new passcode
+  final String confirmNewPasscode;
+
+  /// Text shown when entering an existing passcode
+  final String enterPasscode;
+
+  /// Text shown on the cancel button
+  final String cancel;
+
+  /// Create an Arabic version of the text strings
+  factory ScreenLockTextStrings.arabic() {
+    return const ScreenLockTextStrings(
+      enterNewPasscode: 'الرجاء إدخال رمز المرور الجديد',
+      confirmNewPasscode: 'الرجاء تأكيد رمز المرور الجديد',
+      enterPasscode: 'الرجاء إدخال رمز المرور',
+      cancel: 'إلغاء',
+    );
+  }
 }

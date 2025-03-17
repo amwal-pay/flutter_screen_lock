@@ -15,6 +15,7 @@ class KeyPad extends StatelessWidget {
     this.customizedButtonTap,
     this.deleteButton,
     this.cancelButton,
+    required this.textStrings,
   }) : config = config ?? const KeyPadConfig();
 
   final InputController inputState;
@@ -25,6 +26,7 @@ class KeyPad extends StatelessWidget {
   final VoidCallback? customizedButtonTap;
   final Widget? deleteButton;
   final Widget? cancelButton;
+  final ScreenLockTextStrings textStrings;
 
   KeyPadButtonConfig get actionButtonConfig =>
       config.actionButtonConfig ?? const KeyPadButtonConfig(fontSize: 18);
@@ -47,8 +49,8 @@ class KeyPad extends StatelessWidget {
       onPressed: didCancelled,
       config: actionButtonConfig,
       child: cancelButton ??
-          const Text(
-            'Cancel',
+          Text(
+            textStrings.cancel,
             textAlign: TextAlign.center,
           ),
     );

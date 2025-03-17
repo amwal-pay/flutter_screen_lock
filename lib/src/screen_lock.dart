@@ -8,7 +8,7 @@ import 'package:flutter_screen_lock/src/layout/key_pad.dart';
 
 class ScreenLock extends StatefulWidget {
   /// Animated ScreenLock
-  const ScreenLock({
+  ScreenLock({
     super.key,
     required String this.correctString,
     required VoidCallback this.onUnlocked,
@@ -33,7 +33,9 @@ class ScreenLock extends StatefulWidget {
     this.secretsBuilder,
     this.useBlur = true,
     this.useLandscape = true,
-  })  : title = title ?? const Text('Please enter passcode.'),
+  })  : title = title ??
+            Text((config?.textStrings ?? const ScreenLockTextStrings())
+                .enterPasscode),
         confirmTitle = null,
         digits = correctString.length,
         onConfirmed = null,
@@ -42,7 +44,7 @@ class ScreenLock extends StatefulWidget {
         assert(correctString.length > 0, 'correct string cannot be empty');
 
   /// Animated ScreenLock
-  const ScreenLock.create({
+  ScreenLock.create({
     super.key,
     required ValueChanged<String> this.onConfirmed,
     this.onOpened,
@@ -69,9 +71,12 @@ class ScreenLock extends StatefulWidget {
     this.useBlur = true,
     this.useLandscape = true,
   })  : correctString = null,
-        title = title ?? const Text('Please enter new passcode.'),
-        confirmTitle =
-            confirmTitle ?? const Text('Please confirm new passcode.'),
+        title = title ??
+            Text((config?.textStrings ?? const ScreenLockTextStrings())
+                .enterNewPasscode),
+        confirmTitle = confirmTitle ??
+            Text((config?.textStrings ?? const ScreenLockTextStrings())
+                .confirmNewPasscode),
         onUnlocked = null,
         secretsConfig = secretsConfig ?? const SecretsConfig(),
         assert(maxRetries > -1);
@@ -362,6 +367,8 @@ class _ScreenLockState extends State<ScreenLock> {
           customizedButtonChild: widget.customizedButtonChild,
           deleteButton: widget.deleteButton,
           cancelButton: widget.cancelButton,
+          textStrings:
+              widget.config?.textStrings ?? const ScreenLockTextStrings(),
         ),
       );
     }

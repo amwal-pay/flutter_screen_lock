@@ -5,8 +5,8 @@ class SecretConfig {
   const SecretConfig({
     this.size = 16,
     this.borderSize = 1,
-    this.borderColor = Colors.white,
-    this.enabledColor = Colors.white,
+    this.borderColor = Colors.black,
+    this.enabledColor = Colors.black,
     this.disabledColor = Colors.transparent,
     this.erroredBorderColor,
     this.erroredColor,
