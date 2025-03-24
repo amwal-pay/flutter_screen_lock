@@ -77,6 +77,9 @@ class ScreenLockConfig {
       color: Colors.white,
       fontSize: 18,
     ),
+    textStrings: const ScreenLockTextStrings(
+      cancel: '',
+    ),
   );
 }
 

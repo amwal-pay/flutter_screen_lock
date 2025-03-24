@@ -48,11 +48,11 @@ class KeyPad extends StatelessWidget {
     return KeyPadButton.transparent(
       onPressed: didCancelled,
       config: actionButtonConfig,
-      child: cancelButton ??
-          Text(
-            textStrings.cancel,
-            textAlign: TextAlign.center,
-          ),
+      child: Icon(
+        Icons.close,
+        color: actionButtonConfig.backgroundColor ?? Colors.blue,
+        size: 24,
+      ),
     );
   }
 
