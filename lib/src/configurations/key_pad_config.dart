@@ -7,7 +7,9 @@ class KeyPadConfig {
     this.inputStrings = _numbers,
     List<String>? displayStrings,
     this.clearOnLongPressed = false,
-  }) : displayStrings = displayStrings ?? inputStrings;
+    this.isArabic = false,
+  }) : displayStrings =
+            displayStrings ?? (isArabic ? _arabicNumbers : _numbers);
 
   /// Config for numeric [KeyPadButton]s.
   final KeyPadButtonConfig? buttonConfig;
@@ -26,6 +28,9 @@ class KeyPadConfig {
   /// Whether to clear the input when long pressing the clear key.
   final bool clearOnLongPressed;
 
+  /// Whether to use Arabic numbers
+  final bool isArabic;
+
   static const List<String> _numbers = [
     '0',
     '1',
@@ -39,18 +44,33 @@ class KeyPadConfig {
     '9',
   ];
 
+  static const List<String> _arabicNumbers = [
+    '٠',
+    '١',
+    '٢',
+    '٣',
+    '٤',
+    '٥',
+    '٦',
+    '٧',
+    '٨',
+    '٩',
+  ];
+
   /// Copies a [KeyPadConfig] with new values.
   KeyPadConfig copyWith({
     KeyPadButtonConfig? buttonConfig,
     List<String>? inputStrings,
     List<String>? displayStrings,
     bool? clearOnLongPressed,
+    bool? isArabic,
   }) {
     return KeyPadConfig(
       buttonConfig: buttonConfig ?? this.buttonConfig,
       inputStrings: inputStrings ?? this.inputStrings,
       displayStrings: displayStrings ?? this.displayStrings,
       clearOnLongPressed: clearOnLongPressed ?? this.clearOnLongPressed,
+      isArabic: isArabic ?? this.isArabic,
     );
   }
 }

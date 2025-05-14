@@ -31,6 +31,25 @@ class KeyPad extends StatelessWidget {
   KeyPadButtonConfig get actionButtonConfig =>
       config.actionButtonConfig ?? const KeyPadButtonConfig(fontSize: 18);
 
+  static const List<String> _arabicNumbers = [
+    '٠',
+    '١',
+    '٢',
+    '٣',
+    '٤',
+    '٥',
+    '٦',
+    '٧',
+    '٨',
+    '٩',
+  ];
+
+  bool get _isArabic =>
+      RegExp(r'[\u0600-\u06FF]').hasMatch(textStrings.enterPasscode);
+
+  List<String> get _displayStrings =>
+      _isArabic ? _arabicNumbers : config.displayStrings;
+
   Widget _buildDeleteButton() {
     return KeyPadButton.transparent(
       onPressed: () => inputState.removeCharacter(),
@@ -94,7 +113,7 @@ class KeyPad extends StatelessWidget {
       children: List.generate(3, (index) {
         final number = (rowNumber - 1) * 3 + index + 1;
         final input = config.inputStrings[number];
-        final display = config.displayStrings[number];
+        final display = _displayStrings[number];
 
         return KeyPadButton(
           config: config.buttonConfig,
@@ -107,7 +126,7 @@ class KeyPad extends StatelessWidget {
 
   Widget _generateLastRow(BuildContext context) {
     final input = config.inputStrings[0];
-    final display = config.displayStrings[0];
+    final display = _displayStrings[0];
 
     return Row(
       mainAxisSize: MainAxisSize.min,

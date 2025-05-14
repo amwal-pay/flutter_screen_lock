@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screen_lock/src/configurations/key_pad_config.dart';
 
 class ScreenLockConfig {
   const ScreenLockConfig({
@@ -8,7 +9,11 @@ class ScreenLockConfig {
     this.buttonStyle,
     this.themeData,
     this.textStrings = const ScreenLockTextStrings(),
-  });
+    KeyPadConfig? keyPadConfig,
+  }) : keyPadConfig = keyPadConfig ??
+            (textStrings is _ArabicScreenLockTextStrings
+                ? const KeyPadConfig(isArabic: true)
+                : const KeyPadConfig());
 
   /// Background color of the ScreenLock.
   final Color? backgroundColor;
@@ -27,6 +32,9 @@ class ScreenLockConfig {
 
   /// Text strings configuration
   final ScreenLockTextStrings textStrings;
+
+  /// Keypad configuration
+  final KeyPadConfig keyPadConfig;
 
   /// Returns this config as a [ThemeData].
   ThemeData toThemeData() {
@@ -48,6 +56,7 @@ class ScreenLockConfig {
     ButtonStyle? buttonStyle,
     ThemeData? themeData,
     ScreenLockTextStrings? textStrings,
+    KeyPadConfig? keyPadConfig,
   }) {
     return ScreenLockConfig(
       backgroundColor: backgroundColor ?? this.backgroundColor,
@@ -56,6 +65,7 @@ class ScreenLockConfig {
       buttonStyle: buttonStyle ?? this.buttonStyle,
       themeData: themeData ?? this.themeData,
       textStrings: textStrings ?? this.textStrings,
+      keyPadConfig: keyPadConfig ?? this.keyPadConfig,
     );
   }
 
@@ -105,11 +115,16 @@ class ScreenLockTextStrings {
 
   /// Create an Arabic version of the text strings
   factory ScreenLockTextStrings.arabic() {
-    return const ScreenLockTextStrings(
-      enterNewPasscode: 'الرجاء إدخال رمز المرور الجديد',
-      confirmNewPasscode: 'الرجاء تأكيد رمز المرور الجديد',
-      enterPasscode: 'الرجاء إدخال رمز المرور',
-      cancel: 'إلغاء',
-    );
+    return const _ArabicScreenLockTextStrings();
   }
+}
+
+class _ArabicScreenLockTextStrings extends ScreenLockTextStrings {
+  const _ArabicScreenLockTextStrings()
+      : super(
+          enterNewPasscode: 'الرجاء إدخال رمز المرور الجديد',
+          confirmNewPasscode: 'الرجاء تأكيد رمز المرور الجديد',
+          enterPasscode: 'الرجاء إدخال رمز المرور',
+          cancel: 'إلغاء',
+        );
 }
